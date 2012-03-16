@@ -6,9 +6,9 @@ Celery Config
 
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
-BROKER_USER = "stockr"
-BROKER_PASSWORD = "stockr"
-BROKER_VHOST = "stockr.local"
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
 
 CELERYD_CONCURRENCY = 1
 CELERY_IMPORTS = ['tasks']
