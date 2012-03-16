@@ -12,4 +12,4 @@ def example_1(pid):
     """
     Example 1
     """
-    return ':'.join(['OK', str(pid)]
+    return ':'.join(['OK', str(pid)])
