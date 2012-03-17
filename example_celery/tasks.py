@@ -18,5 +18,4 @@ def example_1(pid):
     """
     time.sleep(random.randint(1, 3))
     r = ':'.join(['OK', str(pid)])
-    print ('TASK', r)
     return r
