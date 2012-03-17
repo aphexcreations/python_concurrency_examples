@@ -19,9 +19,9 @@ CELERY_REDIS_HOST = "localhost"
 CELERY_REDIS_PORT = 6379
 CELERY_REDIS_DB = 0
 
-CELERY_DEFAULT_QUEUE = 'gevent_examples.examples'
+CELERY_DEFAULT_QUEUE = 'python_examples'
 CELERY_QUEUES = {
-    'gevent_examples.examples': {
-        'binding_key': 'gevent_examples.examples'
+    'python_examples': {
+        'binding_key': 'python_examples'
     }
 }

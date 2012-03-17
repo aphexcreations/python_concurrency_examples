@@ -13,7 +13,7 @@ def _build_task_call(pid):
     Returns: Bool
     """
     return send_task('tasks.example_1', [pid],
-                     routing_key='gevent_examples.examples')
+                     routing_key='python_examples')
 
 
 def _join_all(task_calls, timeout=300):
@@ -47,7 +47,7 @@ def main():
 
     Returns: Int
     """
-    task_calls = [_build_task_call(i) for i in xrange(1, 1000)]
+    task_calls = [_build_task_call(i) for i in xrange(1, 20)]
     res = _join_all(task_calls)
     print res
     return 0
