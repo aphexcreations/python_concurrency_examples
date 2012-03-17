@@ -1,30 +1,44 @@
 #!/usr/bin/env python
 
-import gevent
-
-## Be sure to import monkey module and run the patcher
-from gevent import monkey
-monkey.patch_socket()
-
+import time
 import sys
 
 from celery.execute import send_task
 
 
-def _grab(pid):
+def _build_task_call(pid):
     """
-    Grab task reult
+    Grab task result
 
     Returns: Bool
     """
-    r = send_task('tasks.example_1',
-                  [pid],
-                  routing_key='gevent_examples.examples')
-    r.get()
-    ## If you see the pids printed in random order,
-    ## this is indicative of asyncronous loading
-    print 'Done:', pid
-    return True
+    return send_task('tasks.example_1', [pid],
+                     routing_key='gevent_examples.examples')
+
+
+def _join_all(task_calls, timeout=300):
+    """
+    Blocks and joins on a set of celery task calls
+    """
+    out = []
+    stats = set(xrange(len(task_calls)))
+    while True:
+        if len(stats) > 0:
+            rem = []
+            for i in stats:
+                t = task_calls[i]
+                if t.ready():
+                    if t.successful():
+                        d = t.get(timeout=timeout)
+                        out.append(d)
+                    rem.append(i)
+            for r in rem:
+                stats.remove(r)
+            if len(stats) > 0:
+                time.sleep(.01)
+        else:
+            break
+    return out
 
 
 def main():
@@ -33,8 +47,9 @@ def main():
 
     Returns: Int
     """
-    threads = [gevent.spawn(_grab, i) for i in xrange(1, 20)]
-    gevent.joinall(threads)
+    task_calls = [_build_task_call(i) for i in xrange(1, 1000)]
+    res = _join_all(task_calls)
+    print res
     return 0
 
 

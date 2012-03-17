@@ -1,13 +1,7 @@
-Gevent Usage Examples
-=====================
+Python Concurrency Examples
+===========================
 
 Author: Brendon Crawford
 
-
-Examples
---------
-
-  * example_requests.py
-
-    Example of asyncronous calls with python-requests module
+Various snippets demonstrating concurrency in Python.
 
